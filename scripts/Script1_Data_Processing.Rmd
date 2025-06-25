@@ -4,15 +4,20 @@ author: "Heather Amato"
 date: "2025-06-22"
 output: html_document
 ---
+notes 
+```{r}
 
+```
+#grey space is a code 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 # Install packages
-install.packages(c("here","tidyverse","dplyr","readxl"))
+#install.packages(c("here","tidyverse","dplyr","readxl"))
 
-install.packages("remotes")                        # if not already installed
-remotes::install_github("jknappe/quantitray")      # installs the package directly from GitHub
+
+##install.packages("remotes")                        # if not already installed
+#remotes::install_github("jknappe/quantitray")      # installs the package directly from GitHub
 
 # Load libraries
 library(here)
@@ -23,6 +28,8 @@ library(readxl)
 
 # Check current directory & set new directory if needed
 here()
+
+
 ```
 
 ## Training Module 1. Microbiology lab results and qPCR data cleaning
@@ -31,10 +38,13 @@ In this session, we will clean and process .csv files including
 #### Read data into RStudio
 We will be using the here() package which relates all file paths to the directory in which this script is stored. This makes it easier for people to collaborate across computers, as long as the folder structure is the same. We recommend storing all data on the cloud (Box or Drive) and using the desktop Box/Drive app to be able to directly access your Box/Drive folders from your local computer. For this workshop, you will be utilizing the folder on your desktop that you created with the forked GitHub repository.   
 ```{r read.dat}
+#test
+#test<-read.csv("C:/Users/Denov/OneDrive/Documents/GitHub/Pathogen-Data-Analysis-Training/simulated_data/survey_data_simulated.csv")
 
 # Read microbiological data
 # (there are also packages you can install and load, like read_xl(), for reading .xlsx files)
 microbio_df <- read_csv(here("simulated_data", "microbial_data_simulated.csv"))
+rm(test)
 
 # Folder path for TAC .csvs
 tac_folder <- here("simulated_data", "simulated_cards")
@@ -53,6 +63,8 @@ summary(microbio_df) # summary of data
 head(microbio_df, n=8) # view top 8 rows
 unique(microbio_df$sample_id) %>% length() # number of samples
 table(microbio_df$sample_type) # number of rows in dataset by type
+#add
+View(microbio_df)
 ```
 
 #### Clean and process microbio dataset
@@ -67,6 +79,8 @@ microbio_clean <- microbio_df %>%
     soil_moisture = (wet_soil_mass - dry_soil_mass) / dry_soil_mass *100 # estimate soil moisture content as percent
   ) %>%
   dplyr::select(-c(sample_id, plate_weight, wet_weight, dry_weight, wet_soil_mass, dry_soil_mass))
+
+table(microbio_clean)
 
 # Workshop task: Check your new variables
 # Add code here to check soil_moisture (continuous) and sample_type (categorical)
